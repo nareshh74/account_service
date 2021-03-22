@@ -11,10 +11,27 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+
+class USERS_DB:
+    class DEV:
+        PORT = os.getenv("RETHINKDB_DEV_PORT")
+        HOST = os.getenv("RETHINKDB_DEV_HOST")
+        DATABASE = os.getenv("RETHINKDB_DEV_DATABASE")
+    
+    class TEST:
+        PORT = os.getenv("RETHINKDB_TEST_PORT")
+        HOST = os.getenv("RETHINKDB_TEST_HOST")
+        DATABASE = os.getenv("RETHINKDB_TEST_DATABASE")
+
+TESTING_MODE = os.getenv("TESTING_MODE") == "1"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -26,7 +43,6 @@ SECRET_KEY = 'h=t^2w-icv=4z!#m@0r0co^k00zue1c&&5rr02@k@ycigw+q)-'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -69,7 +85,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'account_service.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -80,25 +95,27 @@ WSGI_APPLICATION = 'account_service.wsgi.application'
 #     }
 # }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -112,7 +129,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
